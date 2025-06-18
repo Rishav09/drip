@@ -1,0 +1,129 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+pau/
+pau/
+
+#################################
+#  General
+#################################
+# Byte‑compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+Log.*
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+anifest
+*.spec
+
+#################################
+#  Virtual environments
+#########################fi########
+venv/
+.env
+.venv/
+env/
+ENV/
+.env.local
+pip-wheel-metadata/
+pip-selfcheck.json
+
+#################################
+#  Testing
+#################################
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+hypothesis.xml
+.cache/
+coverage.xml
+nosetests.xml
+*.cover
+htmlcov/
+
+#################################
+#  Static analysis
+#################################
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+
+#################################
+#  Editors / IDEs
+#################################
+#  VS Code
+.vscode/
+#  PyCharm
+.idea/
+#  JetBrains Rider & others
+*.iml
+
+#  Vim / Neovim
+*.swp
+*.swo
+*.un~
+Session.vim
+
+#  Emacs
+*~
+\#*\#
+.\#*
+
+#################################
+#  Logs & misc
+#################################
+*.log
+*.pot
+*.mo
+*.sqlite3
+*.db
+*.ipynb_checkpoints
+
+#################################
+#  macOS / Windows
+#################################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+state/my-consumer-group/tumbling_window_60000_reduce/trades/0/LOG.old.1748994264789527
+state/my-consumer-group/tumbling_window_60000_reduce/trades/0/LOG.old.1748994741444247
+state/my-consumer-group/tumbling_window_60000_reduce/trades/0/LOG
+state/my-consumer-group/tumbling_window_60000_reduce/trades/0/IDENTITY
+# Quix Streams / Kafka Streams local state
+state/
+
+.envrc
