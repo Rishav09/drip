@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "candles",
     "loguru>=0.7.3",
     "pre-commit>=4.2.0",
     "quixstreams>=3.16.1",
@@ -15,10 +16,12 @@ dependencies = [
 [tool.uv.workspace]
 members = [
     "services/trades",
+    "services/candles",
 ]
 
 [tool.uv.sources]
 trades = { workspace = true }
+candles = { workspace = true }
  
 
  [tool.ruff]
