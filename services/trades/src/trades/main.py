@@ -24,18 +24,12 @@ def run(
 
             for event in events:
                 # Serialize an event using the defined Topic
-                message = topic.serialize(  # key=event.product_id,
-                    value=event.to_dict()
-                )
+                message = topic.serialize(key=event.product_id, value=event.to_dict())
                 # logger.info(
                 #     f'Preparing to produce: key={event.product_id}, value={event.to_dict()}'
                 # )
                 # Produce a message into the Kafka topic
-                producer.produce(
-                    topic=topic.name,
-                    value=message.value,
-                    # key=message.key
-                )
+                producer.produce(topic=topic.name, value=message.value, key=message.key)
                 logger.info(f'Produced message to topic{topic.name}')
                 logger.info(f'Trade{event.model_dump()} pushed to kafka')
 
