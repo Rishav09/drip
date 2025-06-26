@@ -50,7 +50,7 @@ def run(
     kafka_broker_address: str,
     kafka_input_topic: str,
     kafka_output_topic: str,
-    # sskafka_consumer_group: str,
+    kafka_consumer_group: str,
     candle_seconds: int,
 ):
     """
@@ -70,7 +70,7 @@ def run(
     """
 
     app = Application(
-        broker_address=kafka_broker_address  # consumer_group=kafka_consumer_group
+        broker_address=kafka_broker_address, consumer_group=kafka_consumer_group
     )
 
     trades_topic = app.topic(name=kafka_input_topic, value_serializer='json')
@@ -137,6 +137,6 @@ if __name__ == '__main__':
         kafka_broker_address=config.kafka_broker_address,
         kafka_input_topic=config.kafka_input_topic,
         kafka_output_topic=config.kafka_output_topic,
-        # kafka_consumer_group=config.kafka_consumer_group,
+        kafka_consumer_group=config.kafka_consumer_group,
         candle_seconds=config.candle_seconds,
     )
