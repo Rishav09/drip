@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     kafka_output_topic: str
     kafka_consumer_group: str
     candle_seconds: int
+    max_candles_in_state: int = 10
     # live_or_historical: Literal['live', 'historical'] = 'live'
     # last_n_days: int = 30
 

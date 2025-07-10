@@ -1,4 +1,8 @@
+from loguru import logger
 from quixstreams import Application
+
+from technical_indicators.candle import update_candles_in_state
+from technical_indicators.indicators import compute_technical_indicators
 
 
 def run(
@@ -28,19 +32,28 @@ def run(
         broker_address=kafka_broker_address, consumer_group=kafka_consumer_group
     )
 
-    candles_topic = app.topic(name=kafka_input_topic, value_serializer='json')
+    candles_topic = app.topic(name=kafka_input_topic, value_deserializer='json')
     technical_indicators_topic = app.topic(
         name=kafka_output_topic, value_serializer='json'
     )
 
-    # Step 1. Ingest trades from the input Kafka topic
+    # Step 1. Ingest trades from the input Kafka topic, Create a streaming data frame connected to
+    # input Kafka topic
     sdf = app.dataframe(topic=candles_topic)
 
+    # Filter the candles b the given candle seconds
     sdf = sdf[sdf['candle_seconds'] == candle_seconds]
-    # Log input messages
-    # sdf = sdf.update(lambda message: logger.debug(f'Final message: {value}'))
 
-    # ## Step 3. Output to the output topic
+    # Step 3 Add candles to the state dictionary
+    sdf = sdf.apply(update_candles_in_state, stateful=True)
+
+    # Step 4 Compute technial indicators from the candles in the state dictionary
+    sdf = sdf.apply(compute_technical_indicators, stateful=True)
+
+    # Log input messages on the console
+    sdf = sdf.update(lambda value: logger.debug(f'Final message: {value}'))
+
+    # ## Step 5. Produce the candles to the output kafka topic
     sdf = sdf.to_topic(technical_indicators_topic)
 
     app.run()
