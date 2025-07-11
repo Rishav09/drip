@@ -16,6 +16,7 @@ deploy: build push
 	kubectl delete -f deployments/dev/${service}/${service}.yaml --ignore-not-found=true
 	kubectl apply -f deployments/dev/${service}/${service}.yaml
 
+
 lint:
 	ruff check . --fix
 
