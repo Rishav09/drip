@@ -73,11 +73,12 @@ def run(
         broker_address=kafka_broker_address, consumer_group=kafka_consumer_group
     )
 
-    trades_topic = app.topic(name=kafka_input_topic, value_serializer='json')
+    trades_topic = app.topic(name=kafka_input_topic, value_deserializer='json')
     candles_topic = app.topic(name=kafka_output_topic, value_serializer='json')
 
     # Step 1. Ingest trades from the input Kafka topic
     sdf = app.dataframe(topic=trades_topic)
+    sdf = sdf.update(lambda trade: logger.debug(f'RAW TRADE ➜ {trade}'))
 
     # Log input messages
     sdf = sdf.update(lambda message: logger.info(f'Input: {message}'))

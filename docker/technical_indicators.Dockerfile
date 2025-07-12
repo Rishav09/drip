@@ -58,7 +58,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 ENTRYPOINT []
 
 # Run the FastAPI application by default
-CMD ["uv", "run", "/app/services/candles/src/candles/main.py"]
+CMD ["uv", "run", "/app/services/technical_indicators/src/technical_indicators/main.py"]
 
 ## To debug
 #CMD ["/bin/bash", "-c", "sleep 999999"]
