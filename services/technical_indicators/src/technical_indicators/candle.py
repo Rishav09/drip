@@ -49,4 +49,4 @@ def update_candles_in_state(candle: dict, state: State):
 
     state.set('candles', candles)
 
-    return {'candles': candles}
+    return candle
