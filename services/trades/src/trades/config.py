@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -14,8 +16,9 @@ class Settings(BaseSettings):
     ]
     kafka_broker_address: str
     kafka_topic_name: str
-    # live_or_historical: Literal['live', 'historical'] = 'live'
-    # last_n_days: int = 30
+    # live_or_historical: str = 'live'
+    live_or_historical: Literal['live', 'historical'] = 'live'
+    last_n_days: int = 30
 
 
 config = Settings()

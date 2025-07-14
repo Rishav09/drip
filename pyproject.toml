@@ -9,6 +9,7 @@ dependencies = [
     "loguru>=0.7.3",
     "pre-commit>=4.2.0",
     "quixstreams>=3.16.1",
+    "requests>=2.32.4",
     "technical-indicators",
     "trades",
     "websocket-client>=1.8.0",
