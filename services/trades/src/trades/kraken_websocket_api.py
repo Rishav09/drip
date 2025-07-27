@@ -39,16 +39,25 @@ class KrakenWebsocketAPI:
         except KeyError as e:
             logger.error(f'No `data` field with trades in the message {e}')
             return []
-        trades = []
-        for trade in trades_data:
-            trades.append(
-                Trade(
-                    product_id=trade['symbol'],
-                    price=trade['price'],
-                    quantity=trade['qty'],
-                    timestamp=trade['timestamp'],
-                )
+        # trades = []
+        # for trade in trades_data:
+        #     trades.append(
+        #         Trade(
+        #             product_id=trade['symbol'],
+        #             price=trade['price'],
+        #             quantity=trade['qty'],
+        #             timestamp=trade['timestamp'],
+        #         )
+        #     )
+        trades = [
+            Trade.from_kraken_websocket_response(
+                product_id=trade['symbol'],
+                price=trade['price'],
+                quantity=trade['qty'],
+                timestamp=trade['timestamp'],
             )
+            for trade in trades_data
+        ]
         return trades
 
     def _subscribe(self, product_ids: list[str]):
@@ -73,3 +82,9 @@ class KrakenWebsocketAPI:
         for _ in product_ids:
             _ = self._ws_client.recv()
             _ = self._ws_client.recv()
+
+    def is_done(self) -> bool:
+        """
+        Returns True if the websocket is done, False otherwise.
+        """
+        return False
