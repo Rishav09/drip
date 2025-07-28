@@ -82,22 +82,22 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /
+              path: /actuator/health
               port: 8080
-            initialDelaySeconds: 0
+            initialDelaySeconds: 45
             periodSeconds: 10
-            timeoutSeconds: 1
+            timeoutSeconds: 5
 
           name: kafka-ui
 
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /
+              path: /actuator/health
               port: 8080
-            initialDelaySeconds: 0
+            initialDelaySeconds: 45
             periodSeconds: 10
-            timeoutSeconds: 1
+            timeoutSeconds: 5
 
           resources:
             limits:

@@ -1,24 +1,31 @@
 dev:
 	uv run services/${service}/src/${service}/main.py
 
-push:
-#This command loads the Docker image into the kind cluster, in actual setting this should be uploaded to git registry
-#and then the deployment should pull the image from there.
-# kind load docker-image ${service}:dev --name rwml-34fa
-	@image_name=$$(echo $${service} | sed 's/_/-/g') && \
-	kind load docker-image "$${image_name}:dev" --name rwml-34fa
+# push:
+# #This command loads the Docker image into the kind cluster, in actual setting this should be uploaded to git registry
+# #and then the deployment should pull the image from there.
+# # kind load docker-image ${service}:dev --name rwml-34fa
+# 	@image_name=$$(echo $${service} | sed 's/_/-/g') && \
+# 	kind load docker-image "$${image_name}:dev" --name rwml-34fa
 
-build:
-## Create a docker image for the service
-# The image is tagged as dev, which indicates that it is a development version.
-# #docker build -t ${service}:dev -f docker/${service}.Dockerfile   .
-	image_name=$$(echo "$${service}" | sed 's/_/-/g') && \
-	docker build -t "$${image_name}:dev" -f "docker/$${service}.Dockerfile" .
+# build:
+# ## Create a docker image for the service
+# # The image is tagged as dev, which indicates that it is a development version.
+# # #docker build -t ${service}:dev -f docker/${service}.Dockerfile   .
+# 	image_name=$$(echo "$${service}" | sed 's/_/-/g') && \
+# 	docker build -t "$${image_name}:dev" -f "docker/$${service}.Dockerfile" .
 
-deploy: build push
-	kubectl delete -f deployments/dev/$${service}/$${service}.yaml --ignore-not-found=true
-	kubectl apply -f deployments/dev/$${service}/$${service}.yaml
+# deploy: build push
+# 	kubectl delete -f deployments/dev/$${service}/$${service}.yaml --ignore-not-found=true
+# 	kubectl apply -f deployments/dev/$${service}/$${service}.yaml
 
+# Builds and pushes the docker image to the given environment
+build-and-push:
+	./scripts/build-and-push-image.sh ${image} ${env}
+
+# Deploys a service to the given environment
+deploy:
+	./scripts/deploy.sh ${service} ${env}
 
 lint:
 	ruff check . --fix
